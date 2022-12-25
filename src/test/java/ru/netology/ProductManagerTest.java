@@ -18,11 +18,14 @@ public class ProductManagerTest {
     private Product book2 = new Book(2, "Тихий Дон", 500, "Михаил Шолохов");
     private Product book3 = new Book(3, "Преступление и Наказание", 450, "Фёдор Достоевский");
     private Product book4 = new Book(4, "Идиот", 400, "Фёдор Достоевский");
+    private Product book5 = new Book(5, "Идиот", 400, "Фёдор Достоевский");
 
-    private Product smartphone1 = new Smartphone(5, "Note10Pro", 28000, "Redmi");
-    private Product smartphone2 = new Smartphone(6, "Iphone13", 70000, "Apple");
-    private Product smartphone3 = new Smartphone(7, "Honor 10", 25000, "Huawei");
-    private Product smartphone4 = new Smartphone(8, "Honor 8", 20000, "Huawei");
+    private Product smartphone1 = new Smartphone(6, "Note10Pro", 28000, "Redmi");
+    private Product smartphone2 = new Smartphone(7, "Iphone13", 70000, "Apple");
+    private Product smartphone3 = new Smartphone(8, "Honor 10", 25000, "Huawei");
+    private Product smartphone4 = new Smartphone(9, "Honor 8", 20000, "Huawei");
+    private Product smartphone5 = new Smartphone(10, "Honor 8", 20000, "Huawei");
+
 
     @BeforeEach
     public void setup() {
@@ -30,15 +33,17 @@ public class ProductManagerTest {
         manager.add(book2);
         manager.add(book3);
         manager.add(book4);
+        manager.add(book5);
         manager.add(smartphone1);
         manager.add(smartphone2);
         manager.add(smartphone3);
         manager.add(smartphone4);
+        manager.add(smartphone5);
     }
 
     @Test
     public void ShouldFindAll() {
-        Product[] expected = {book1, book2, book3, book4, smartphone1, smartphone2, smartphone3, smartphone4};
+        Product[] expected = {book1, book2, book3, book4, book5, smartphone1, smartphone2, smartphone3, smartphone4, smartphone5};
         Product[] actual = repository.findAll();
         Assertions.assertArrayEquals(expected, actual);
     }
@@ -46,7 +51,7 @@ public class ProductManagerTest {
     @Test
     public void shouldRemoveProductID() {
         repository.removeById(smartphone2.getId());
-        Product[] expected = {book1, book2, book3, book4, smartphone1, smartphone3, smartphone4};
+        Product[] expected = {book1, book2, book3, book4, book5, smartphone1, smartphone3, smartphone4, smartphone5};
         Product[] actual = repository.findAll();
         Assertions.assertArrayEquals(expected, actual);
     }
@@ -68,27 +73,10 @@ public class ProductManagerTest {
     }
 
     @Test
-    public void shouldSearchBookByAuthorName() {
-        String authorName = "Михаил Шолохов";
-        Product[] expected = {book2};
-        Product[] actual = manager.searchBy(authorName);
-        Assertions.assertArrayEquals(expected, actual);
-    }
-
-    @Test
-    public void shouldSearchBooksWithSameAuthorName() {
-        String authorName = "Фёдор Достоевский";
-        Product[] expected = {book3, book4};
-        Product[] actual = manager.searchBy(authorName);
-        Assertions.assertArrayEquals(expected, actual);
-    }
-
-
-    @Test
-    public void shouldSearchBookByAuthorNameIfFalse() {
-        String authorName = "Александр Пушкин";
-        Product[] expected = {};
-        Product[] actual = manager.searchBy(authorName);
+    public void shouldSearchBookWithSameName() {
+        String name = "Идиот";
+        Product[] expected = {book4, book5};
+        Product[] actual = manager.searchBy(name);
         Assertions.assertArrayEquals(expected, actual);
     }
 
@@ -109,26 +97,10 @@ public class ProductManagerTest {
     }
 
     @Test
-    public void shouldSearchSmartphoneByBrand() {
-        String brand = "Apple";
-        Product[] expected = {smartphone2};
-        Product[] actual = manager.searchBy(brand);
-        Assertions.assertArrayEquals(expected, actual);
-    }
-
-    @Test
-    public void shouldSearchSmartphoneByBrandIfFalse() {
-        String brand = "Xiaomi";
-        Product[] expected = {};
-        Product[] actual = manager.searchBy(brand);
-        Assertions.assertArrayEquals(expected, actual);
-    }
-
-    @Test
-    public void shouldSearchSmartphonesWithSameBrand() {
-        String brand = "Huawei";
-        Product[] expected = {smartphone3, smartphone4};
-        Product[] actual = manager.searchBy(brand);
+    public void shouldSearchSmartphoneWithSameName() {
+        String name = "Honor 8";
+        Product[] expected = {smartphone4, smartphone5};
+        Product[] actual = manager.searchBy(name);
         Assertions.assertArrayEquals(expected, actual);
     }
 }

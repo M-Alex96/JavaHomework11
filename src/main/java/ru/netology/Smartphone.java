@@ -8,8 +8,4 @@ public class Smartphone extends Product {
         super(id, name, price);
         this.brand = brand;
     }
-
-    public String getBrand() {
-        return brand;
-    }
 }

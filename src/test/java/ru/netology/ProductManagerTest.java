@@ -81,6 +81,30 @@ public class ProductManagerTest {
     }
 
     @Test
+    public void shouldSearchBookByAuthorName() {
+        String authorName = "Михаил Шолохов";
+        Product[] expected = {book2};
+        Product[] actual = manager.searchBy(authorName);
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldSearchBookByAuthorNameIfFalse() {
+        String authorName = "Александр Пушкин";
+        Product[] expected = {};
+        Product[] actual = manager.searchBy(authorName);
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldSearchBooksWithSameAuthorName() {
+        String authorName = "Фёдор Достоевский";
+        Product[] expected = {book3, book4, book5};
+        Product[] actual = manager.searchBy(authorName);
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
     public void shouldSearchSmartphoneByName() {
         String name = "Note10Pro";
         Product[] expected = {smartphone1};
@@ -101,6 +125,30 @@ public class ProductManagerTest {
         String name = "Honor 8";
         Product[] expected = {smartphone4, smartphone5};
         Product[] actual = manager.searchBy(name);
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldSearchSmartphoneByBrand() {
+        String brand = "Apple";
+        Product[] expected = {smartphone2};
+        Product[] actual = manager.searchBy(brand);
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldSearchSmartphoneByBrandIfFalse() {
+        String brand = "Xiaomi";
+        Product[] expected = {};
+        Product[] actual = manager.searchBy(brand);
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldSearchSmartphonesWithSameBrand() {
+        String brand = "Huawei";
+        Product[] expected = {smartphone3, smartphone4, smartphone5};
+        Product[] actual = manager.searchBy(brand);
         Assertions.assertArrayEquals(expected, actual);
     }
 }
